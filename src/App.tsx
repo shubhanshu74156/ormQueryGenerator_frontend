@@ -8,12 +8,13 @@ function App() {
     const [language, setLanguage] = useState("python");
     const [result, setResult] = useState("");
     const [loading, setLoading] = useState(false);
+    const BASE_URL: string = process.env.BASE_URL || "";
 
     const handleSubmit = async () => {
         setLoading(true);
         setResult("");
         try {
-            const response = await axios.post("http://localhost:8000/convert", {
+            const response = await axios.post(BASE_URL, {
                 sql_schema: sqlSchema,
                 orm,
                 language,
