@@ -8,18 +8,21 @@ function App() {
     const [language, setLanguage] = useState("python");
     const [result, setResult] = useState("");
     const [loading, setLoading] = useState(false);
-    const BASE_URL: string = process.env.BASE_URL || "";
-
+    // const BASE_URL: string = import.meta.env.REACT_APP_BASE_URL || "";
     const handleSubmit = async () => {
         setLoading(true);
         setResult("");
+
         try {
-            const response = await axios.post(BASE_URL, {
-                sql_schema: sqlSchema,
-                orm,
-                language,
-                question,
-            });
+            const response = await axios.post(
+                "https://ormquerygenerator-backend.onrender.com/convert",
+                {
+                    sql_schema: sqlSchema,
+                    orm,
+                    language,
+                    question,
+                }
+            );
             setResult(response.data.result || response.data.error);
         } catch (err) {
             setResult("Error occurred");
